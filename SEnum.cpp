@@ -29,8 +29,8 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
          Application->Initialize();
          Application->Title = "Нумерация страниц смет";
-         Application->CreateForm(__classid(TSEnumMainForm), &SEnumMainForm);
          Application->CreateForm(__classid(TSEnumMainFormM), &SEnumMainFormM);
+         Application->CreateForm(__classid(TSEnumMainForm), &SEnumMainForm);
          Application->CreateForm(__classid(TSaveForm), &SaveForm);
          Application->CreateForm(__classid(TForCanvasForm), &ForCanvasForm);
          Application->CreateForm(__classid(TContentsForm), &ContentsForm);
