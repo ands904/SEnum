@@ -1,0 +1,50 @@
+// guardtest.cpp : Defines the entry point for the console application.
+//
+
+#pragma warning( disable : 4996)
+
+#define GUARD // включение защиты, лучше этот дефайн задать в опциях проекта
+#define GUARD_DEBUG //использовать только для отладки, выводит сообщение какая защита привязки сработала
+#include "guard.h"
+#include <iostream>
+
+int main(int argc, char *argv[])
+{
+#ifdef GUARD
+    //антиотладочные приемы
+    GuardFunc1();
+    GuardFunc2();
+    GuardFunc3();
+
+    //читает файл привязки
+    read_lic();
+
+    //дешифрует прочитанный файл привязки 
+    decrypt_lic(); 
+
+    //проверка привязок разных типов
+    GuardFuncPriv2(); 
+    GuardFuncPriv3();
+    GuardFuncPriv4();
+    
+    //подсчет CRC
+    GuardFuncCRC(); 
+
+    //для того чтобы добавить CRC, а также зашифовать файл, для затруднения дизассемблирования, применяется утилита cryptfile. Использование: cryptfile guardtest.exe
+
+    //переодическая проверка верности crc
+    for(int i = 0; i < 10; ++i)
+    { 
+        //даже если crc неверен сработать может не сразу, поэтому эту проверку нужно повесить на какое-то дастаточно частое переодическое действие в программе (например выбор объекта пользователем)
+        GuardCRCCheck(ReSet1());
+        Sleep(1000);
+    }
+
+    //необходимо обязательно разнести вызовы этих функций по разным частям программы
+#endif // GUARD
+
+    std::cout << "hello word\n";
+
+	return 0;
+}
+

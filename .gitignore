@@ -1,0 +1,23 @@
+*.obj
+*.ddp
+*.bcc32pch
+*.bak
+*.cfg
+*.db
+*.exe
+*.tif
+*.tiff
+*.xls
+*.xml
+*.pdf
+*.dsk
+*.tds
+*.~*
+abc/
+content file pattern/
+ggg/
+PDFCreator/
+PDFCreatorTest/
+ttt/
+tttt/
+Versions/

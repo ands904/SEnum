@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="SEnum.exe"/>
+    <OBJFILES value="SEnum.obj SEnumMainUnit.obj SEnumLib.obj ..\..\Common\vds.obj 
+      ..\..\Common\qsort.obj ..\..\Common\fastmem.obj SEnumLib1.obj 
+      WatchPrintSaveAsUnit.obj SaveUnit.obj TCatcherUnitSEnum.obj 
+      ForCanvasUnit.obj ContentsUnit.obj FindReplaceUnit.obj EditTiffUnit.obj 
+      TiffImageConfigUnit.obj TPDFCreator.obj lib\guard\VLONG.obj 
+      lib\guard\guard.obj lib\guard\idea.obj lib\guard\RSA.obj 
+      lib\guard\timeguard.obj SEnumMainUnitM.obj TMyTabUnit.obj"/>
+    <RESFILES value="SEnum.res"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) SEnumMainUnit.dfm SaveUnit.dfm ForCanvasUnit.dfm 
+      ContentsUnit.dfm FindReplaceUnit.dfm EditTiffUnit.dfm 
+      TiffImageConfigUnit.dfm SEnumMainUnitM.dfm"/>
+    <LIBFILES value=""/>
+    <LIBRARIES value="FogPackage.lib bdertl.lib VclSmp.lib tee.lib vcldb.lib tmsc6.lib vclie.lib 
+      vclx.lib dbrtl.lib FlexCelC60.lib bcb2kaxserver.lib selcol.lib 
+      CoolGrid.lib rtl.lib vcl.lib"/>
+    <SPARELIBS value="vcl.lib rtl.lib CoolGrid.lib selcol.lib bcb2kaxserver.lib FlexCelC60.lib 
+      dbrtl.lib vclx.lib vclie.lib tmsc6.lib vcldb.lib tee.lib VclSmp.lib 
+      bdertl.lib FogPackage.lib"/>
+    <PACKAGES value="vcl.bpi rtl.bpi dbrtl.bpi adortl.bpi vcldb.bpi vclx.bpi bdertl.bpi 
+      vcldbx.bpi ibxpress.bpi dsnap.bpi cds.bpi bdecds.bpi qrpt.bpi teeui.bpi 
+      teedb.bpi tee.bpi dss.bpi teeqr.bpi visualclx.bpi visualdbclx.bpi 
+      dsnapcrba.bpi dsnapcon.bpi bcbsmp.bpi vclie.bpi xmlrtl.bpi inet.bpi 
+      inetdbbde.bpi inetdbxpress.bpi inetdb.bpi nmfast.bpi webdsnap.bpi 
+      bcbie.bpi websnap.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
+      indy.bpi bcb2kaxserver.bpi FogPackage.bpi EePackage.bpi selcol.bpi 
+      CoolGrid.bpi tmsc6.bpi VclSmp.bpi"/>
+    <PATHCPP value=".;..\..\Common;lib\guard"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG;STRICT"/>
+    <SYSDEFINES value="NO_STRICT"/>
+    <MAINSOURCE value="SEnum.cpp"/>
+    <INCLUDEPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder6\Bin&quot;;&quot;..\..\Всяка фигня\LoadCourseraVideos&quot;;lib\guard;..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\TMS;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;..\..\BuilderCommon\MyGrid;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;&quot;C:\UnitedProjects\Нумерация страниц смет\exe&quot;;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder6\Bin&quot;;&quot;..\..\Всяка фигня\LoadCourseraVideos&quot;;lib\guard;..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;$(BCB)\Projects\Lib;..\..\BuilderCommon\MyGrid;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;&quot;C:\UnitedProjects\Нумерация страниц смет\exe&quot;;$(BCB)\lib\obj;$(BCB)\lib;c:\UnitedProjects\BuilderCommon\TMS"/>
+    <WARNINGS value="-w-par -w-8027"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-I&quot;C:\Program Files (x86)\Borland\CBuilder6\Bin&quot; 
+      -I&quot;..\..\Всяка фигня\LoadCourseraVideos&quot; -Ilib\guard 
+      -I..\..\BuilderCommon\Fog -IY:\UnitedProjects\TinyPy 
+      -I..\..\BuilderCommon\TMS -I..\..\BuilderCommon\FlexCel\XLSAdapter 
+      -I..\..\BuilderCommon\FlexCel\FlexCel -I..\..\Common 
+      -I..\..\BuilderCommon\MyGrid -I&quot;C:\Program Files\Borland\CBuilder6\Bin&quot; 
+      -I&quot;C:\UnitedProjects\Нумерация страниц смет\exe&quot; -I$(BCB)\include 
+      -I$(BCB)\include\vcl -src_suffix cpp -D_DEBUG -DSTRICT -boa"/>
+    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -6 -b- -k -y -v -vi -c 
+      -tW -tWM"/>
+    <PFLAGS value="-$YD -$W -$O- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zd"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -Gn -v"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0w32.obj sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="SEnum.res" FORMNAME="" UNITNAME="SEnum.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SEnum.cpp" FORMNAME="" UNITNAME="SEnum" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SEnumMainUnit.cpp" FORMNAME="SEnumMainForm" UNITNAME="SEnumMainUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SEnumLib.cpp" FORMNAME="" UNITNAME="SEnumLib" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\vds.cpp" FORMNAME="" UNITNAME="vds" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\qsort.cpp" FORMNAME="" UNITNAME="qsort" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\fastmem.cpp" FORMNAME="" UNITNAME="fastmem" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SEnumLib1.cpp" FORMNAME="" UNITNAME="SEnumLib1" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="WatchPrintSaveAsUnit.cpp" FORMNAME="" UNITNAME="WatchPrintSaveAsUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SaveUnit.cpp" FORMNAME="SaveForm" UNITNAME="SaveUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="TCatcherUnitSEnum.cpp" FORMNAME="" UNITNAME="TCatcherUnitSEnum" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="ForCanvasUnit.cpp" FORMNAME="ForCanvasForm" UNITNAME="ForCanvasUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="ContentsUnit.cpp" FORMNAME="ContentsForm" UNITNAME="ContentsUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="FindReplaceUnit.cpp" FORMNAME="FindReplaceForm" UNITNAME="FindReplaceUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="EditTiffUnit.cpp" FORMNAME="EditTiffForm" UNITNAME="EditTiffUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="TiffImageConfigUnit.cpp" FORMNAME="TiffImageConfigForm" UNITNAME="TiffImageConfigUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="TPDFCreator.cpp" FORMNAME="" UNITNAME="TPDFCreator" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lib\guard\VLONG.CPP" FORMNAME="" UNITNAME="VLONG.CPP" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lib\guard\guard.cpp" FORMNAME="" UNITNAME="guard.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lib\guard\idea.cpp" FORMNAME="" UNITNAME="idea.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lib\guard\RSA.CPP" FORMNAME="" UNITNAME="RSA.CPP" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lib\guard\timeguard.cpp" FORMNAME="" UNITNAME="timeguard.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SEnumMainUnitM.cpp" FORMNAME="SEnumMainFormM" UNITNAME="SEnumMainUnitM" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="TMyTabUnit.cpp" FORMNAME="" UNITNAME="TMyTabUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=0
+AutoIncBuild=0
+MajorVer=1
+MinorVer=0
+Release=0
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1049
+CodePage=1251
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.0.0.0
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+Comments=
+
+[Excluded Packages]
+c:\program files (x86)\borland\cbuilder6\Bin\dclite60.bpl=Borland Integrated Translation Environment
+
+[HistoryLists\hlIncludePath]
+Count=7
+Item0=C:\Program Files (x86)\Borland\CBuilder6\Bin;..\..\Всяка фигня\LoadCourseraVideos;lib\guard;..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\TMS;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\include;$(BCB)\include\vcl
+Item1=..\..\Всяка фигня\LoadCourseraVideos;lib\guard;..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\TMS;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\include;$(BCB)\include\vcl
+Item2=lib\guard;..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\TMS;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\include;$(BCB)\include\vcl
+Item3=..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\TMS;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\include;$(BCB)\include\vcl
+Item4=Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\TMS;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\include;$(BCB)\include\vcl
+Item5=..\..\BuilderCommon\TMS;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\include;$(BCB)\include\vcl
+Item6=..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=7
+Item0=C:\Program Files (x86)\Borland\CBuilder6\Bin;..\..\Всяка фигня\LoadCourseraVideos;lib\guard;..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;$(BCB)\Projects\Lib;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\lib\obj;$(BCB)\lib;c:\UnitedProjects\BuilderCommon\TMS
+Item1=..\..\Всяка фигня\LoadCourseraVideos;lib\guard;..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;$(BCB)\Projects\Lib;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\lib\obj;$(BCB)\lib;c:\UnitedProjects\BuilderCommon\TMS
+Item2=lib\guard;..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;$(BCB)\Projects\Lib;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\lib\obj;$(BCB)\lib;c:\UnitedProjects\BuilderCommon\TMS
+Item3=..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;$(BCB)\Projects\Lib;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\lib\obj;$(BCB)\lib;c:\UnitedProjects\BuilderCommon\TMS
+Item4=Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;$(BCB)\Projects\Lib;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\lib\obj;$(BCB)\lib;c:\UnitedProjects\BuilderCommon\TMS
+Item5=..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;$(BCB)\Projects\Lib;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\lib\obj;$(BCB)\lib;c:\UnitedProjects\BuilderCommon\TMS
+Item6=..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;$(BCB)\Projects\Lib;..\..\BuilderCommon\MyGrid;C:\Program Files\Borland\CBuilder6\Bin;C:\UnitedProjects\Нумерация страниц смет\exe;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=4
+Item0=_DEBUG;STRICT
+Item1=_DEBUG;STRICT;GUARD
+Item2=_DEBUG;STRICT;GUARD;GUARD_DEBUG
+Item3=_DEBUG
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=1
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+  </IDEOPTIONS>
+</PROJECT>
