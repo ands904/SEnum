@@ -5,9 +5,6 @@
 #include "TMyTabUnit.h"
 #pragma package(smart_init)
 
-// todo: FogMouseMove к перемещению вкладки добавить скроллирование 
-// todo: сделать дл€ таймера initial interval и routine interval - done
-
 extern int stop;
 
 //---------------------------------------------------------------------------
@@ -55,6 +52,24 @@ TMyTabControl::TMyTabControl(TFog *fog) {
     Tabs->Add("¬кладка 9");
     Tabs->Add("¬кладка 10");
     Tabs->Add("¬кладка 11");
+    Tabs->Add("¬кладка 12");
+    Tabs->Add("¬кладка 13");
+    Tabs->Add("¬кладка 14");
+    Tabs->Add("¬кладка 15");
+    Tabs->Add("¬кладка 16");
+    Tabs->Add("¬кладка 17");
+    Tabs->Add("¬кладка 18");
+    Tabs->Add("¬кладка 19");
+    Tabs->Add("¬кладка 20");
+    Tabs->Add("¬кладка 21");
+    Tabs->Add("¬кладка 22");
+    Tabs->Add("¬кладка 23");
+    Tabs->Add("¬кладка 24");
+    Tabs->Add("¬кладка 25");
+    Tabs->Add("¬кладка 26");
+    Tabs->Add("¬кладка 27");
+    Tabs->Add("¬кладка 28");
+    Tabs->Add("¬кладка 29");
     FTabIndex = 0;
     FLeftTabIndex = 0;
     dxleft = 7;             // смещение текста вкладки слева
@@ -101,7 +116,6 @@ TMyTabControl::~TMyTabControl(void) {
 
 
 
-
 void __fastcall TMyTabControl::ScrollLeft(void) {
 //-------------------------------------------------------------------------------
 //                ≈сли состо€ние tcsScrollLeft и LeftButtonActive               |
@@ -120,6 +134,82 @@ void __fastcall TMyTabControl::ScrollRight(void) {
     IncLeftTabIndex();
 }
 
+void __fastcall TMyTabControl::DragRight(int mode) {
+//-------------------------------------------------------------------------------
+//                      “€нет закладку вправо, если можно                       |
+// mode - условие т€нути€:                                                      |
+//    1 - курсор мыши правее на 10 пикселов от текущей закладки (просто т€нем)  |
+//    2 - курсор мыши в левой четверти текущей (скроллирование)                 |
+//-------------------------------------------------------------------------------
+    POINT PT;
+    TRect *r;
+    TPoint pt;
+    int X;
+    if (FTabIndex >= Tabs->Count - 1) return;      // некуда дальше скроллировать
+    ::GetCursorPos(&PT);
+    pt.x = PT.x; pt.y = PT.y;
+    pt = f->ScreenToClient(pt);
+    X = pt.x;
+    r = TabRects + FTabIndex;
+    if (mode == 1 && X >= r->right + 10 || mode == 2 && X >= LeftButtonRect.left - 10) {
+    // if (mode == 1 && X >= r->right + 10) {
+        //if (FTabIndex == FLeftTabIndex) FLeftTabIndex--;
+        //Tabs->Exchange(FTabIndex, FTabIndex - 1);
+        //SetTabIndex(FTabIndex - 1);
+        //r = TabRects + FTabIndex;
+        //MouseDownedX = (r->left + r->right) / 2;
+        Tabs->Exchange(FTabIndex, FTabIndex + 1);
+        SetTabIndex(FTabIndex + 1);
+        r = TabRects + FTabIndex;
+        MouseDownedX = (r->left + r->right) / 2;
+    }
+}
+
+
+void __fastcall TMyTabControl::DragLeft(int mode) {
+//-------------------------------------------------------------------------------
+//                      “€нет закладку влево, если можно                        |
+// mode - условие т€нути€:                                                      |
+//    1 - курсор мыши левее на 10 пикселов от текущей закладки (просто т€нем)   |
+//    2 - курсор мыши в левой четверти текущей (скроллирование)                 |
+//-------------------------------------------------------------------------------
+    POINT PT;
+    TRect *r;
+    TPoint pt;
+    int X;
+    if (FTabIndex == 0) return;      // некуда дальше скроллировать
+    ::GetCursorPos(&PT);
+    pt.x = PT.x; pt.y = PT.y;
+    pt = f->ScreenToClient(pt);
+    X = pt.x;
+    r = TabRects + FTabIndex;
+    // if (mode == 1 && X <= r->left - 10 || mode == 2 && X < r->Width() / 4 && FLeftTabIndex > 0) {
+    if (mode == 1 && X <= r->left - 10 || mode == 2 && X < r->Width() / 4) {
+        // if (FTabIndex == FLeftTabIndex) FLeftTabIndex--;
+        Tabs->Exchange(FTabIndex, FTabIndex - 1);
+        SetTabIndex(FTabIndex - 1);
+        r = TabRects + FTabIndex;
+        MouseDownedX = (r->left + r->right) / 2;
+    }
+}
+
+
+void __fastcall TMyTabControl::StartTimer(void) {
+//-------------------------------------------------------------------------------
+//                 «апускает таймер с интервалом initial_interval               |
+//-------------------------------------------------------------------------------
+    timer->Interval = initial_interval;
+    timer->Enabled = true;
+}
+
+void __fastcall TMyTabControl::StopTimer(void) {
+//-------------------------------------------------------------------------------
+//                                ќстанавливает таймер                          |
+//-------------------------------------------------------------------------------
+    timer->Enabled = false;
+}
+
+
 void __fastcall TMyTabControl::TimerTick(TObject *Sender) {
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
@@ -134,6 +224,12 @@ void __fastcall TMyTabControl::TimerTick(TObject *Sender) {
             break;
         case tcsScrollRight:
             ScrollRight();
+            break;
+        case tcsMouseDraggedLeft:
+            DragLeft(2);                // драг со скроллингом
+            break;
+        case tcsMouseDraggedRight:
+            DragRight(2);               // драг со скроллингом
             break;
     }
 }
@@ -155,14 +251,14 @@ void __fastcall TMyTabControl::FogMouseDown(TObject *Sender, TMouseButton Button
         LeftButtonPressed = true;
         DecLeftTabIndex();
         status = tcsScrollLeft;
-        timer->Interval = initial_interval;
-        timer->Enabled = true;
+        StartTimer();
     } else if (index == -2 && RightButtonActive) {
         RightButtonPressed = true;
         IncLeftTabIndex();
         status = tcsScrollRight;
-        timer->Interval = initial_interval;
-        timer->Enabled = true;
+        StartTimer();
+        // timer->Interval = initial_interval;
+        // timer->Enabled = true;
     }
 }
 
@@ -192,28 +288,56 @@ void __fastcall TMyTabControl::FogMouseMove(TObject *Sender, TShiftState Shift, 
 
         r = TabRects + FTabIndex;
         if (X < MouseDownedX) {                 // курсор мыши левее середины текущей вкладки
+            if (FTabIndex == 0) return;         // некуда дальше скроллировать
             if (FTabIndex == FLeftTabIndex) {   // а не надо ли скроллировать влево?
-                                                // временно не реализовано
+                // if (X < r->Width() / 4 && FLeftTabIndex > 0) {       // точно надо?
+                if (X < r->Width() / 4) {       // точно надо?
+                    //FLeftTabIndex--;
+                    //Tabs->Exchange(FTabIndex, FTabIndex - 1);
+                    //SetTabIndex(FTabIndex - 1);
+                    //r = TabRects + FTabIndex;
+                    //MouseDownedX = (r->left + r->right) / 2;
+                    DragLeft(2);
+                    status = tcsMouseDraggedLeft;
+                    StartTimer();
+                }
             } else {                            // пока не надо, проверим, не перетащить вкладку влево
                 if (X <= r->left - 10) {        // перетащить
-                    Tabs->Exchange(FTabIndex, FTabIndex - 1);
-                    SetTabIndex(FTabIndex - 1);
-                    r = TabRects + FTabIndex;
-                    MouseDownedX = (r->left + r->right) / 2;
+                    //Tabs->Exchange(FTabIndex, FTabIndex - 1);
+                    //SetTabIndex(FTabIndex - 1);
+                    //r = TabRects + FTabIndex;
+                    //MouseDownedX = (r->left + r->right) / 2;
+                    DragLeft(1);
                 }
             }
         } else {                                // курсор мыши правее середины текущей вкладки
+            if (FTabIndex >= Tabs->Count - 1) return;      // некуда дальше скроллировать
             if (r->right >= LeftButtonRect.left - 10) {    // а не проверить ли скроллируемость вправо?
-                                                           // временно не реализовано
+                DragRight(2);
+                status = tcsMouseDraggedRight;
+                StartTimer();
             } else {                                       // скроллировать не надо, проверим на перетащить
-                if (FTabIndex >= Tabs->Count - 1) return;  // некуда дальше скроллировать
                 if (X >= r->right + 10) {
-                    Tabs->Exchange(FTabIndex, FTabIndex + 1);
-                    SetTabIndex(FTabIndex + 1);
-                    r = TabRects + FTabIndex;
-                    MouseDownedX = (r->left + r->right) / 2;
+                    int k = FLeftTabIndex;
+                    DragRight(1);
+                    if (FLeftTabIndex != k) {
+                        status = tcsMouseDraggedRight;
+                        StartTimer();
+                    }
                 }
             }
+        }
+
+    } else if (status == tcsMouseDraggedLeft) {
+        r = TabRects + FTabIndex;
+        if (X >= r->Width() / 3) {
+            status = tcsMouseDragged;
+        }
+
+    } else if (status == tcsMouseDraggedRight) {
+        r = TabRects + FTabIndex;
+        if (X <= r->right - r->Width() / 4) {
+            status = tcsMouseDragged;
         }
 
     } else if (status == tcsMouseDraggedOut) {

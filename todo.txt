@@ -1,3 +1,4 @@
 1. сделать для таймера initial interval и routine interval - done
-2. FogMouseMove к перемещению вкладки добавить скроллирование 
+2. FogMouseMove к перемещению вкладки добавить скроллирование - done
+3. Пора делать OnDrawOver, OnDragDrop локальное, со скроллированием
 

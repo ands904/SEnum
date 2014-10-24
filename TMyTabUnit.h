@@ -11,6 +11,8 @@ enum TMyTabControlStatus {
     tcsScrollRight,             // нажата кнопка ScrolRight
     tcsMouseDowned,             // нажата левая кнопка мыши на текущем табуляторе FTabIndex
     tcsMouseDragged,            // схватили вкладку и потянули
+    tcsMouseDraggedLeft,        // требуется скроллинг влево
+    tcsMouseDraggedRight,       // требуется скроллинг вправо
     tcsMouseDraggedOut,         // схватили вкладку и потянули - но курсор ушел далеко от f
     tcsIdle                     // ничего не делает
 };
@@ -54,6 +56,10 @@ class TMyTabControl {
     int routine_interval;       // Обычный интервал автоповтора скролла
     void __fastcall ScrollLeft(void);
     void __fastcall ScrollRight(void);
+    void __fastcall DragLeft(int mode);
+    void __fastcall DragRight(int mode);
+    void __fastcall StartTimer(void);
+    void __fastcall StopTimer(void);
     void __fastcall TimerTick(TObject *Sender);
     int MouseDownedX, MouseDownedY;     // Начальная позиция курсора кликнутой на вкладке мыши
 

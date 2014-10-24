@@ -17,7 +17,7 @@ TSEnumMainFormM *SEnumMainFormM;
 
 TMyTabControl *tabs;
 
-
+// alloca
 
 //---------------------------------------------------------------------------
 __fastcall TSEnumMainFormM::TSEnumMainFormM(TComponent* Owner) : TForm(Owner) {
