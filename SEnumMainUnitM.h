@@ -34,8 +34,14 @@ __published:	// IDE-managed Components
     TFog *Fog1;
     TTabControl *TabControl1;
     TTimer *Timer1;
+    TLabel *Label1;
+    TLabel *Label2;
     void __fastcall FormPaint(TObject *Sender);
     void __fastcall FormDestroy(TObject *Sender);
+    void __fastcall Fog1DragOver(TObject *Sender, TObject *Source, int X,
+          int Y, TDragState State, bool &Accept);
+    void __fastcall Fog1DragDrop(TObject *Sender, TObject *Source, int X,
+          int Y);
 private:	// User declarations
 public:		// User declarations
     __fastcall TSEnumMainFormM(TComponent* Owner);

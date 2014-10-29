@@ -16,6 +16,22 @@ object SEnumMainFormM: TSEnumMainFormM
   OnPaint = FormPaint
   PixelsPerInch = 96
   TextHeight = 13
+  object Label1: TLabel
+    Left = 336
+    Top = 168
+    Width = 32
+    Height = 13
+    Caption = 'Label1'
+    DragMode = dmAutomatic
+  end
+  object Label2: TLabel
+    Left = 336
+    Top = 200
+    Width = 32
+    Height = 13
+    Caption = 'Label2'
+    DragMode = dmAutomatic
+  end
   object Fog1: TFog
     Left = 0
     Top = 0
@@ -23,6 +39,8 @@ object SEnumMainFormM: TSEnumMainFormM
     Height = 33
     Align = alTop
     TabOrder = 0
+    OnDragDrop = Fog1DragDrop
+    OnDragOver = Fog1DragOver
   end
   object TabControl1: TTabControl
     Left = 24

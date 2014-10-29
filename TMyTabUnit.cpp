@@ -22,6 +22,7 @@ TMyTabControl::TMyTabControl(TFog *fog) {
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
     status = tcsIdle;
+    scrolld = tsdNo;
     timer = new TTimer(NULL);
     timer->Enabled = false;
     timer->OnTimer = TimerTick;
@@ -35,7 +36,9 @@ TMyTabControl::TMyTabControl(TFog *fog) {
     f->OnMouseMove = FogMouseMove;
     f->OnMouseUp = FogMouseUp;
     f->OnMouseWheel = FogMouseWheel;
+    FOnDragDrop = f->OnDragDrop;
     f->OnDragDrop = FogDragDrop;
+    FOnDragOver = f->OnDragOver;
     f->OnDragOver = FogDragOver;
     f->OnPaint = FogPaint;
 
@@ -116,6 +119,39 @@ TMyTabControl::~TMyTabControl(void) {
 
 
 
+TMyScrollDirection __fastcall TMyTabControl::FindScrollDirection(int X, int Y) {
+//-------------------------------------------------------------------------------
+//     Ќаходит направление скроллинга в зависимости от координат и scrolld      |
+// ≈сли скроллировать уже н≈куда, то тоже возвращает tsdNo                      |
+// Ќе присваивает scrolld, только возвращает направление!                       |
+//-------------------------------------------------------------------------------
+    TRect *r;
+    int index;
+
+    if (Y < 0 || Y > f->Height) return tsdNo;
+    if (X < 0 || X > f->Width) return tsdNo;
+
+    index = GetRectIndex(X, Y, true);
+    if (index < 0) return tsdNo;
+    r = TabRects + index;
+    switch(scrolld) {
+        case tsdNo:
+            if (index < 0) break;
+            if (r->right > LeftButtonRect.left) return tsdRight;
+            if (index == FLeftTabIndex && X < r->Width() / 4) return tsdLeft;
+            break;
+        case tsdLeft:
+            if (index < 0) break;
+            if (X >= r->Width() / 3) break;
+            return tsdLeft;
+        case tsdRight:
+            if (r->right > LeftButtonRect.left) return tsdRight;
+            break;
+    }
+    return tsdNo;
+}
+
+
 void __fastcall TMyTabControl::ScrollLeft(void) {
 //-------------------------------------------------------------------------------
 //                ≈сли состо€ние tcsScrollLeft и LeftButtonActive               |
@@ -133,6 +169,26 @@ void __fastcall TMyTabControl::ScrollRight(void) {
     if (status != tcsScrollRight || !RightButtonActive) return;
     IncLeftTabIndex();
 }
+
+
+void __fastcall TMyTabControl::ScrollDragLeft(void) {
+//-------------------------------------------------------------------------------
+//              —кроллирует влево дл€ Drag-and-Drop - по таймеру                |
+//-------------------------------------------------------------------------------
+    DecLeftTabIndex();
+}
+
+
+void __fastcall TMyTabControl::ScrollDragRight(void) {
+//-------------------------------------------------------------------------------
+//              —кроллирует вправо дл€ Drag-and-Drop - по таймеру               |
+//-------------------------------------------------------------------------------
+    int x = LeftButtonRect.left + 2;
+    int y = f->Height / 2;
+    int index = GetRectIndex(x, y, true);
+    if (index > 0) IncLeftTabIndex();
+}
+
 
 void __fastcall TMyTabControl::DragRight(int mode) {
 //-------------------------------------------------------------------------------
@@ -230,6 +286,12 @@ void __fastcall TMyTabControl::TimerTick(TObject *Sender) {
             break;
         case tcsMouseDraggedRight:
             DragRight(2);               // драг со скроллингом
+            break;
+        case tcsObjectDraggedLeft:      // драгаем объект над табул€тором
+            ScrollDragLeft();
+            break;
+        case tcsObjectDraggedRight:     // драгаем объект над табул€тором
+            ScrollDragRight();
             break;
     }
 }
@@ -378,13 +440,59 @@ void __fastcall TMyTabControl::FogMouseWheel(TObject *Sender,
 void __fastcall TMyTabControl::FogDragDrop(TObject *Sender, TObject *Source, int X, int Y) {
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
-
+    StopTimer();
+    if (!FOnDragDrop) return;
+    DropIndex = GetRectIndex(X, Y, true);
+    FOnDragDrop(Sender, Source, X, Y);
 }
 
 void __fastcall TMyTabControl::FogDragOver(TObject *Sender, TObject *Source, int X, int Y, TDragState State, bool &Accept) {
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
+    TRect *r;
+    TMyScrollDirection sd;
 
+    if (FOnDragOver == NULL) {
+        Accept = false;
+    } else {
+        FOnDragOver(Sender, Source, X, Y, State, Accept);
+    }
+    if (!Accept) {
+        StopTimer();
+        status = tcsIdle;
+        scrolld = tsdNo;
+        return;
+    }
+
+    if (status == tcsIdle) {
+        scrolld = tsdNo;
+        sd = FindScrollDirection(X, Y);
+        if (sd == tsdLeft) {
+            scrolld = sd;
+            status = tcsObjectDraggedLeft;
+            ScrollDragLeft();
+            StartTimer();
+        } else if (sd == tsdRight) {
+            scrolld = sd;
+            status = tcsObjectDraggedRight;
+            ScrollDragRight();
+            StartTimer();
+        }
+    } else if (status == tcsObjectDraggedLeft) {        // скроллировали влево - проверим, надо ли дальше
+        sd = FindScrollDirection(X, Y);
+        if (sd != tsdLeft) {
+            StopTimer();
+            status = tcsIdle;
+            scrolld = tsdNo;
+        }
+    } else if (status == tcsObjectDraggedRight) {       // скроллировали вправо - проверим, надо ли дальше
+        sd = FindScrollDirection(X, Y);
+        if (sd != tsdRight) {
+            StopTimer();
+            status = tcsIdle;
+            scrolld = tsdNo;
+        }
+    }
 
 }
 
@@ -447,9 +555,10 @@ void __fastcall TMyTabControl::BuildTabRects(void) {
 }
 
 
-int __fastcall TMyTabControl::GetRectIndex(int x, int y) {
+int __fastcall TMyTabControl::GetRectIndex(int x, int y, bool tabsonly) {
 //-------------------------------------------------------------------------------
 //            ¬ычисл€ет индекс вкладки, в которую попали координаты x,y         |
+// tabsonly - если искать только среди табул€торов, без кнопок                  |
 // ≈сли положительное число, то собственно индекс вкладки                       |
 // -1 - стрелка влево                                                           |
 // -2 - стрелка вправо                                                          |
@@ -462,8 +571,10 @@ int __fastcall TMyTabControl::GetRectIndex(int x, int y) {
 
     BuildTabRects();
 
-    if (_InsideRect(&LeftButtonRect, x, y)) return -1;
-    if (_InsideRect(&RightButtonRect, x, y)) return -2;
+    if (!tabsonly) {
+        if (_InsideRect(&LeftButtonRect, x, y)) return -1;
+        if (_InsideRect(&RightButtonRect, x, y)) return -2;
+    }
 
     for (i = 0, r = TabRects; i < Tabs->Count; i++, r++) {
         if (_InsideRect(r, x, y)) return i;
@@ -694,16 +805,18 @@ void __fastcall TMyTabControl::SetLeftTabIndex(int index) {
 void __fastcall TMyTabControl::DecLeftTabIndex(void) {
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
-    FLeftTabIndex--;
+    if (FLeftTabIndex > 0) FLeftTabIndex--;
     Refresh();
 }
 
 void __fastcall TMyTabControl::IncLeftTabIndex(void) {
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
-    FLeftTabIndex++;
+    if (FLeftTabIndex < Tabs->Count - 1) FLeftTabIndex++;
     Refresh();
 }
+
+
 
 
 

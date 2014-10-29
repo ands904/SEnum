@@ -6,6 +6,12 @@
 #include "Fog.h"
 //---------------------------------------------------------------------------
 
+enum TMyScrollDirection {
+    tsdNo,                      // Ќе в состо€нии скроллинга
+    tsdLeft,                    // ¬ состо€нии скроллинга слева
+    tsdRight                    // ¬ состо€нии скроллинга справа
+};
+
 enum TMyTabControlStatus {
     tcsScrollLeft,              // нажата кнопка ScrollLeft
     tcsScrollRight,             // нажата кнопка ScrolRight
@@ -14,12 +20,15 @@ enum TMyTabControlStatus {
     tcsMouseDraggedLeft,        // требуетс€ скроллинг влево
     tcsMouseDraggedRight,       // требуетс€ скроллинг вправо
     tcsMouseDraggedOut,         // схватили вкладку и пот€нули - но курсор ушел далеко от f
+    tcsObjectDraggedLeft,       // объект т€нетс€ с потребностью скроллировать влево
+    tcsObjectDraggedRight,      // объект т€нетс€ с потребностью скроллировать вправо
     tcsIdle                     // ничего не делает
 };
 
 
 class TMyTabControl {
     TMyTabControlStatus status;
+    TMyScrollDirection scrolld;     // текущее состо€ние скроллинга
     TTimer *timer;
 
     TFog *f;
@@ -37,7 +46,7 @@ class TMyTabControl {
     bool LeftButtonActive, RightButtonActive;
     bool LeftButtonPressed, RightButtonPressed;
     void __fastcall BuildTabRects(void);
-    int __fastcall GetRectIndex(int x, int y);
+    int __fastcall GetRectIndex(int x, int y, bool tabsonly = false);
 
 
     TColor FBackColor;
@@ -54,8 +63,11 @@ class TMyTabControl {
 
     int initial_interval;       // Ќачальный интервал перед автоповтором скролла
     int routine_interval;       // ќбычный интервал автоповтора скролла
+    TMyScrollDirection __fastcall FindScrollDirection(int X, int Y);
     void __fastcall ScrollLeft(void);
     void __fastcall ScrollRight(void);
+    void __fastcall ScrollDragLeft(void);
+    void __fastcall ScrollDragRight(void);
     void __fastcall DragLeft(int mode);
     void __fastcall DragRight(int mode);
     void __fastcall StartTimer(void);
@@ -91,6 +103,19 @@ public:
     void __fastcall SetLeftTabIndex(int index);
     void __fastcall DecLeftTabIndex(void);
     void __fastcall IncLeftTabIndex(void);
+
+protected:
+    TDragOverEvent FOnDragOver;
+public:
+    __property TDragOverEvent OnDragOver = {read=FOnDragOver, write=FOnDragOver};
+
+protected:
+    TDragDropEvent FOnDragDrop;
+public:
+    __property TDragDropEvent OnDragDrop = {read=FOnDragDrop, write=FOnDragDrop};
+    int DropIndex;              // индекс табул€тора, над которым бросили
+
+
 };
 
 

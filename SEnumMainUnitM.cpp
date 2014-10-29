@@ -1,5 +1,6 @@
 //---------------------------------------------------------------------------
 
+
 #include <vcl.h>
 #pragma hdrstop
 
@@ -40,5 +41,26 @@ void __fastcall TSEnumMainFormM::FormDestroy(TObject *Sender) {
 //-------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
     delete tabs;
+}
+
+
+void __fastcall TSEnumMainFormM::Fog1DragOver(TObject *Sender,
+      TObject *Source, int X, int Y, TDragState State, bool &Accept)
+{
+//-------------------------------------------------------------------------------
+// ??? Чисто для проверки TMyTabUnit->OnDragOver                                |
+//-------------------------------------------------------------------------------
+    stop++;
+    if (Source == Label2) Accept = false;
+
+}
+
+void __fastcall TSEnumMainFormM::Fog1DragDrop(TObject *Sender, TObject *Source, int X, int Y) {
+//-------------------------------------------------------------------------------
+// ??? Чисто для проверки TMyTabUnit->OnDragDrop                                |
+//-------------------------------------------------------------------------------
+    char buf[100];
+    wsprintf(buf, "tabs->DropIndex = %d", tabs->DropIndex);
+    Application->MessageBox(buf, "info", 0);
 }
 
