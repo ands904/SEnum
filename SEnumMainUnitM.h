@@ -11,6 +11,7 @@
 #include <Menus.hpp>
 #include "Fog.h"
 #include <ExtCtrls.hpp>
+#include "TMyTabUnit.h"
 //---------------------------------------------------------------------------
 class TSEnumMainFormM : public TForm
 {
@@ -43,6 +44,7 @@ __published:	// IDE-managed Components
     void __fastcall Fog1DragDrop(TObject *Sender, TObject *Source, int X,
           int Y);
 private:	// User declarations
+    void __fastcall OnDragDropX(TMyTabControl *Sender, TMyDropData *DropData);
 public:		// User declarations
     __fastcall TSEnumMainFormM(TComponent* Owner);
 };

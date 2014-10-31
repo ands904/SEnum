@@ -42,6 +42,14 @@ TMyTabControl::TMyTabControl(TFog *fog) {
     f->OnDragOver = FogDragOver;
     f->OnPaint = FogPaint;
 
+    droptarget = NULL;
+    FOnDragDropX = NULL;
+    FAcceptText = false;
+    FAcceptHtml = false;
+    FAcceptFiles = false;
+
+
+
     Tabs = new TStringList;
     // Tabs->Add("<пусто>");
     Tabs->Add("Вкладка 1");
@@ -100,8 +108,13 @@ TMyTabControl::~TMyTabControl(void) {
 //-------------------------------------------------------------------------------
     timer->Enabled = false;
     delete timer;
+    timer = NULL;
     delete Tabs;
+    Tabs = NULL;
+    if (droptarget != NULL) delete droptarget;
+    droptarget = NULL;
     if (TabRects != NULL) delete[] TabRects;
+    TabRects = NULL;
     f->OnMouseDown = NULL;
     f->OnMouseMove = NULL;
     f->OnMouseUp = NULL;
@@ -119,6 +132,21 @@ TMyTabControl::~TMyTabControl(void) {
 
 
 
+
+
+bool __fastcall TMyTabControl::MouseInsideFog(void) {
+//-------------------------------------------------------------------------------
+//                          Если курсор мыши внутри f                           |
+//-------------------------------------------------------------------------------
+    POINT PT, pt;
+    if (f == NULL) return false;
+    ::GetCursorPos(&PT);
+    pt.x = PT.x; pt.y = PT.y;
+    pt = f->ScreenToClient(pt);
+    return pt.x >= 0 && pt.x <= f->Width && pt.y >= 0 && pt.y <= f->Height;
+}
+
+
 TMyScrollDirection __fastcall TMyTabControl::FindScrollDirection(int X, int Y) {
 //-------------------------------------------------------------------------------
 //     Находит направление скроллинга в зависимости от координат и scrolld      |
@@ -131,7 +159,7 @@ TMyScrollDirection __fastcall TMyTabControl::FindScrollDirection(int X, int Y) {
     if (Y < 0 || Y > f->Height) return tsdNo;
     if (X < 0 || X > f->Width) return tsdNo;
 
-    index = GetRectIndex(X, Y, true);
+    index = GetRectIndex(X, Y);
     if (index < 0) return tsdNo;
     r = TabRects + index;
     switch(scrolld) {
@@ -175,6 +203,7 @@ void __fastcall TMyTabControl::ScrollDragLeft(void) {
 //-------------------------------------------------------------------------------
 //              Скроллирует влево для Drag-and-Drop - по таймеру                |
 //-------------------------------------------------------------------------------
+    if (!MouseInsideFog()) return;
     DecLeftTabIndex();
 }
 
@@ -183,9 +212,10 @@ void __fastcall TMyTabControl::ScrollDragRight(void) {
 //-------------------------------------------------------------------------------
 //              Скроллирует вправо для Drag-and-Drop - по таймеру               |
 //-------------------------------------------------------------------------------
+    if (!MouseInsideFog()) return;
     int x = LeftButtonRect.left + 2;
     int y = f->Height / 2;
-    int index = GetRectIndex(x, y, true);
+    int index = GetRectIndex(x, y);
     if (index > 0) IncLeftTabIndex();
 }
 
@@ -303,7 +333,7 @@ void __fastcall TMyTabControl::FogMouseDown(TObject *Sender, TMouseButton Button
 // ??? Пока временно обрабатывает только левую кнопку по вкладкам и кнопкам     |
 //-------------------------------------------------------------------------------
     if (Button != mbLeft) return;
-    int index = GetRectIndex(X, Y);
+    int index = GetRectIndex(X, Y, false);
     if (index >= 0) {
         SetTabIndex(index);
         status = tcsMouseDowned;
@@ -442,7 +472,7 @@ void __fastcall TMyTabControl::FogDragDrop(TObject *Sender, TObject *Source, int
 //-------------------------------------------------------------------------------
     StopTimer();
     if (!FOnDragDrop) return;
-    DropIndex = GetRectIndex(X, Y, true);
+    DropIndex = GetRectIndex(X, Y);
     FOnDragDrop(Sender, Source, X, Y);
 }
 
@@ -818,5 +848,83 @@ void __fastcall TMyTabControl::IncLeftTabIndex(void) {
 
 
 
+
+
+
+
+
+
+void __fastcall TMyTabControl::OnDragOverX(int X, int Y) {
+//-------------------------------------------------------------------------------
+//       Пролетая над табулятором и неся в клюве внешний драг энд дроп...       |
+//-------------------------------------------------------------------------------
+    TRect *r;
+    TMyScrollDirection sd;
+
+    if (FOnDragDropX == NULL) return;
+
+    if (status == tcsIdle) {
+        scrolld = tsdNo;
+        sd = FindScrollDirection(X, Y);
+        if (sd == tsdLeft) {
+            scrolld = sd;
+            status = tcsObjectDraggedLeft;
+            ScrollDragLeft();
+            StartTimer();
+        } else if (sd == tsdRight) {
+            scrolld = sd;
+            status = tcsObjectDraggedRight;
+            ScrollDragRight();
+            StartTimer();
+        }
+    } else if (status == tcsObjectDraggedLeft) {        // скроллировали влево - проверим, надо ли дальше
+        sd = FindScrollDirection(X, Y);
+        if (sd != tsdLeft) {
+            StopTimer();
+            status = tcsIdle;
+            scrolld = tsdNo;
+        }
+    } else if (status == tcsObjectDraggedRight) {       // скроллировали вправо - проверим, надо ли дальше
+        sd = FindScrollDirection(X, Y);
+        if (sd != tsdRight) {
+            StopTimer();
+            status = tcsIdle;
+            scrolld = tsdNo;
+        }
+    }
+
+}
+
+void __fastcall TMyTabControl::OnDragDropX(TMyDropData *DropData) {
+//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
+    if (FOnDragDropX) FOnDragDropX(this, DropData);
+}
+
+
+TMyTabDropEvent __fastcall TMyTabControl::GetOnDragDropX(void) {      // return FOnDragDropX;
+//-------------------------------------------------------------------------------
+//          Возвращает текущий адрес обработчика внешнего drag and drop         |
+//-------------------------------------------------------------------------------
+    return FOnDragDropX;
+}
+
+
+void __fastcall TMyTabControl::SetOnDragDropX(TMyTabDropEvent Event) {     // FOnDragDropX = Event;}
+//-------------------------------------------------------------------------------
+//              Устанавливает адрес обработчика внешнего drag and drop          |
+//-------------------------------------------------------------------------------
+    if (Event != NULL) {
+        if (droptarget == NULL) {
+            droptarget = new TMyDropTarget(f);
+        }
+        droptarget->SetAcceptText(FAcceptText);
+        droptarget->SetAcceptHtml(FAcceptHtml);
+        droptarget->SetAcceptFiles(FAcceptFiles);
+        droptarget->SetOnDragDrop(OnDragDropX);
+        droptarget->SetOnDragOver(OnDragOverX);
+    }
+    FOnDragDropX = Event;
+}
 
 

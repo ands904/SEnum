@@ -10,7 +10,8 @@
       ForCanvasUnit.obj ContentsUnit.obj FindReplaceUnit.obj EditTiffUnit.obj 
       TiffImageConfigUnit.obj TPDFCreator.obj lib\guard\VLONG.obj 
       lib\guard\guard.obj lib\guard\idea.obj lib\guard\RSA.obj 
-      lib\guard\timeguard.obj SEnumMainUnitM.obj TMyTabUnit.obj"/>
+      lib\guard\timeguard.obj SEnumMainUnitM.obj TMyTabUnit.obj 
+      ..\..\BuilderCommon\MyDragDrop.obj"/>
     <RESFILES value="SEnum.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
@@ -33,7 +34,7 @@
       bcbie.bpi websnap.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
       indy.bpi bcb2kaxserver.bpi FogPackage.bpi EePackage.bpi selcol.bpi 
       CoolGrid.bpi tmsc6.bpi VclSmp.bpi"/>
-    <PATHCPP value=".;..\..\Common;lib\guard"/>
+    <PATHCPP value=".;..\..\Common;lib\guard;..\..\BuilderCommon"/>
     <PATHPAS value=".;"/>
     <PATHRC value=".;"/>
     <PATHASM value=".;"/>
@@ -43,13 +44,13 @@
     <USERDEFINES value="_DEBUG;STRICT"/>
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="SEnum.cpp"/>
-    <INCLUDEPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder6\Bin&quot;;&quot;..\..\Всяка фигня\LoadCourseraVideos&quot;;lib\guard;..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\TMS;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;..\..\BuilderCommon\MyGrid;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;&quot;C:\UnitedProjects\Нумерация страниц смет\exe&quot;;$(BCB)\include;$(BCB)\include\vcl"/>
-    <LIBPATH value="&quot;C:\Program Files (x86)\Borland\CBuilder6\Bin&quot;;&quot;..\..\Всяка фигня\LoadCourseraVideos&quot;;lib\guard;..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;$(BCB)\Projects\Lib;..\..\BuilderCommon\MyGrid;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;&quot;C:\UnitedProjects\Нумерация страниц смет\exe&quot;;$(BCB)\lib\obj;$(BCB)\lib;c:\UnitedProjects\BuilderCommon\TMS"/>
+    <INCLUDEPATH value="..\..\BuilderCommon;&quot;C:\Program Files (x86)\Borland\CBuilder6\Bin&quot;;&quot;..\..\Всяка фигня\LoadCourseraVideos&quot;;lib\guard;..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\TMS;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;..\..\BuilderCommon\MyGrid;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;&quot;C:\UnitedProjects\Нумерация страниц смет\exe&quot;;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="..\..\BuilderCommon;&quot;C:\Program Files (x86)\Borland\CBuilder6\Bin&quot;;&quot;..\..\Всяка фигня\LoadCourseraVideos&quot;;lib\guard;..\..\BuilderCommon\Fog;Y:\UnitedProjects\TinyPy;..\..\BuilderCommon\FlexCel\XLSAdapter;..\..\BuilderCommon\FlexCel\FlexCel;..\..\Common;$(BCB)\Projects\Lib;..\..\BuilderCommon\MyGrid;&quot;C:\Program Files\Borland\CBuilder6\Bin&quot;;&quot;C:\UnitedProjects\Нумерация страниц смет\exe&quot;;$(BCB)\lib\obj;$(BCB)\lib;c:\UnitedProjects\BuilderCommon\TMS"/>
     <WARNINGS value="-w-par -w-8027"/>
     <OTHERFILES value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-I&quot;C:\Program Files (x86)\Borland\CBuilder6\Bin&quot; 
+    <IDLCFLAGS value="-I..\..\BuilderCommon -I&quot;C:\Program Files (x86)\Borland\CBuilder6\Bin&quot; 
       -I&quot;..\..\Всяка фигня\LoadCourseraVideos&quot; -Ilib\guard 
       -I..\..\BuilderCommon\Fog -IY:\UnitedProjects\TinyPy 
       -I..\..\BuilderCommon\TMS -I..\..\BuilderCommon\FlexCel\XLSAdapter 
@@ -96,6 +97,7 @@
       <FILE FILENAME="lib\guard\timeguard.cpp" FORMNAME="" UNITNAME="timeguard.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="SEnumMainUnitM.cpp" FORMNAME="SEnumMainFormM" UNITNAME="SEnumMainUnitM" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="TMyTabUnit.cpp" FORMNAME="" UNITNAME="TMyTabUnit" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\BuilderCommon\MyDragDrop.cpp" FORMNAME="" UNITNAME="MyDragDrop" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>
