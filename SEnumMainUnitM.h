@@ -37,6 +37,7 @@ __published:	// IDE-managed Components
     TTimer *Timer1;
     TLabel *Label1;
     TLabel *Label2;
+    TLabel *Label3;
     void __fastcall FormPaint(TObject *Sender);
     void __fastcall FormDestroy(TObject *Sender);
     void __fastcall Fog1DragOver(TObject *Sender, TObject *Source, int X,
@@ -45,6 +46,7 @@ __published:	// IDE-managed Components
           int Y);
 private:	// User declarations
     void __fastcall OnDragDropX(TMyTabControl *Sender, TMyDropData *DropData);
+    void __fastcall OnTabIndexChange(TMyTabControl *Sender);
 public:		// User declarations
     __fastcall TSEnumMainFormM(TComponent* Owner);
 };

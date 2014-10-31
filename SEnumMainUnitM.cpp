@@ -36,6 +36,8 @@ void __fastcall TSEnumMainFormM::FormPaint(TObject *Sender) {
     tabs = new TMyTabControl(Fog1);
     tabs->SetOnDragDropX(OnDragDropX);
     tabs->SetAcceptFiles(true);
+
+    tabs->SetOnChange(OnTabIndexChange);
 }
 
 void __fastcall TSEnumMainFormM::FormDestroy(TObject *Sender) {
@@ -93,6 +95,11 @@ void __fastcall TSEnumMainFormM::OnDragDropX(TMyTabControl *Sender, TMyDropData 
 }
 
 
+void __fastcall TSEnumMainFormM::OnTabIndexChange(TMyTabControl *Sender) {
+//-------------------------------------------------------------------------------
+// ??? чиста для проверки - тест Sender->OnChange                               |
+//-------------------------------------------------------------------------------
+    Label3->Caption = Sender->Tabs->Strings[Sender->GetTabIndex()];
 
-
+}
 

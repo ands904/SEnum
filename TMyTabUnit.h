@@ -9,6 +9,7 @@
 
 class TMyTabControl;
 typedef void __fastcall (__closure *TMyTabDropEvent)(TMyTabControl *Sender, TMyDropData *DropData);
+typedef void __fastcall (__closure *TMyTabChangeEvent)(TMyTabControl *Sender);
 
 enum TMyScrollDirection {
     tsdNo,                      // Не в состоянии скроллинга
@@ -138,7 +139,17 @@ public:
     TMyTabDropEvent __fastcall GetOnDragDropX(void); // {return OnDragDropX;}
     void __fastcall SetOnDragDropX(TMyTabDropEvent Event); // {OnDragDropX = Event;}
 
+
+
+protected:
+    TMyTabChangeEvent FOnChange;
+public:
+    TMyTabChangeEvent __fastcall GetOnChange(void) {return FOnChange;}
+    void __fastcall SetOnChange(TMyTabChangeEvent Event) {FOnChange = Event;}
+
+
 };
 
 
 #endif
+

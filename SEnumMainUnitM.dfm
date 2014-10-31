@@ -32,6 +32,13 @@ object SEnumMainFormM: TSEnumMainFormM
     Caption = 'Label2'
     DragMode = dmAutomatic
   end
+  object Label3: TLabel
+    Left = 136
+    Top = 200
+    Width = 32
+    Height = 13
+    Caption = 'Label3'
+  end
   object Fog1: TFog
     Left = 0
     Top = 0

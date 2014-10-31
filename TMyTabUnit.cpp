@@ -48,7 +48,7 @@ TMyTabControl::TMyTabControl(TFog *fog) {
     FAcceptHtml = false;
     FAcceptFiles = false;
 
-
+    FOnChange = NULL;
 
     Tabs = new TStringList;
     // Tabs->Add("<пусто>");
@@ -100,6 +100,8 @@ TMyTabControl::TMyTabControl(TFog *fog) {
     RightButtonPressed = false;
 
     Refresh();
+
+
 }
 
 
@@ -824,6 +826,8 @@ void __fastcall TMyTabControl::SetTabIndex(int index) {
 
     FTabIndex = index;
     Refresh();
+
+    if (FOnChange) FOnChange(this);
 }
 
 
